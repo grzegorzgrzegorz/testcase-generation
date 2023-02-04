@@ -1,0 +1,44 @@
+{
+  "system": "MyUtil",
+  "makeValidSentence": {
+    "arg": {
+      "InputIsNotNull": {
+        "values": {
+          "Yes": {
+            "properties": [
+              "inputIsPresent"
+            ]
+          },
+          "No": {
+            "failure": true
+          }
+        }
+      },
+      "InputContent": {
+        "when": {"hasAll": ["inputIsPresent"]},
+        "members": {
+          "Words": {
+            "values": {
+              "One": {},
+              "Many": {}
+            }
+          },
+          "Dots": {
+            "values": {
+              "PresentAtTheEnd": {},
+              "PresentNotAtTheEnd": {},
+              "None": {}
+            }
+          },
+          "Capitals": {
+            "values": {
+              "FirstLetterCapitalized": {},
+              "NotFirstLetterCapitalized": {},
+              "None": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
