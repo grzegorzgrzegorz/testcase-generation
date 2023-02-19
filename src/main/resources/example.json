@@ -1,0 +1,14 @@
+{
+  "InputIsNotNull": {
+    "value": "Yes"
+  },
+  "InputContent.Words": {
+    "value": "One"
+  },
+  "InputContent.Dots": {
+    "value": "PresentAtTheEnd"
+  },
+  "InputContent.Capitals": {
+    "value": "FirstLetterCapitalized"
+  }
+}
