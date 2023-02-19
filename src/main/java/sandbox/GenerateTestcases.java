@@ -19,8 +19,14 @@ public class GenerateTestcases {
         inputCombination.add(new Dots("PresentAtTheEnd"));
         inputCombination.add(new Capitals("FirstLetterCapitalized"));
         System.out.println("String text;");
+
+        System.out.println(GWT.GIVEN);
         inputCombination.forEach(item -> item.generateDsl(GWT.GIVEN));
+
+        System.out.println(GWT.WHEN);
         new When("").generateDsl(GWT.WHEN);
+
+        System.out.println(GWT.THEN);
         inputCombination.forEach(item -> item.generateDsl(GWT.THEN));
     }
 }

@@ -26,11 +26,11 @@ public class DslGenerator {
 
     public void generateDsl(GWT item) {
         if (item.equals(GWT.GIVEN) && givenDsl != null) {
-            givenDsl.generate(item, value);
+            givenDsl.generate(value);
         } else if (item.equals(GWT.WHEN) && whenDsl != null) {
-            whenDsl.generate(item, value);
+            whenDsl.generate(value);
         } else if (item.equals(GWT.THEN) && thenDsl != null) {
-            thenDsl.generate(item, value);
+            thenDsl.generate(value);
         } else {
             System.out.println("//Not found: " + item.toString() + " for "+ this.getClass().getSimpleName() + " class");
         }

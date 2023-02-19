@@ -11,9 +11,8 @@ public class InputIsNotNull extends DslGenerator {
     public InputIsNotNull(String value) {
         super(value);
         if (value == "no") {
-            ParameterClosure thenDsl = (GWT item, String inputValue) -> {
-                String gwtPrefix = item.getName() + System.lineSeparator();
-                System.out.println(gwtPrefix +
+            ParameterClosure thenDsl = (String inputValue) -> {
+                System.out.println(
                         "assertTrue result.isEmpty();");
             };
         }

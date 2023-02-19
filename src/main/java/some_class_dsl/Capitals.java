@@ -11,15 +11,13 @@ public class Capitals extends InputContent {
     public Capitals(String value) {
         super(value);
 
-        ParameterClosure givenDsl = (GWT item, String inputValue) -> {
-            String gwtPrefix = item.getName() + System.lineSeparator();
-            System.out.println(gwtPrefix +
+        ParameterClosure givenDsl = (String inputValue) -> {
+            System.out.println(
                     "dataGenerator.set(\""+inputValue+"\")");
         };
 
-        ParameterClosure thenDsl = (GWT item, String inputValue) -> {
-            String gwtPrefix = item.getName() + System.lineSeparator();
-            System.out.println(gwtPrefix +
+        ParameterClosure thenDsl = (String inputValue) -> {
+            System.out.println(
                     "assertTrue result.matches([A-Z].*);");
         };
 
