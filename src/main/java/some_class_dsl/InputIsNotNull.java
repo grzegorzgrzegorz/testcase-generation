@@ -5,6 +5,9 @@ import gherkin.GWT;
 public class InputIsNotNull extends DslGenerator {
 
 
+    public InputIsNotNull(){
+        this("");
+    }
     public InputIsNotNull(String value) {
         super(value);
         ParameterClosure whenDsl = (GWT item, String inputValue) -> {

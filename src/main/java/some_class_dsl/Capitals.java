@@ -4,6 +4,10 @@ import gherkin.GWT;
 
 public class Capitals extends InputContent {
 
+    public Capitals(){
+        this("");
+    }
+
     public Capitals(String value) {
         super(value);
 

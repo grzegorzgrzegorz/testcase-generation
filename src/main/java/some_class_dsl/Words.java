@@ -4,6 +4,9 @@ import gherkin.GWT;
 
 public class Words extends InputContent {
 
+    public Words(){
+        this("");
+    }
     public Words(String value) {
         super(value);
 
