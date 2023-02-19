@@ -14,13 +14,13 @@ public class Words extends InputContent {
         ParameterClosure givenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
-                    "text = " + inputValue);
+                    "dataGenerator.set(\""+inputValue+"\")");
         };
 
         ParameterClosure thenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
-                    "assertTrue result.containsSpace();");
+                    "assertTrue result.matches(.*[ ].*);");
         };
 
         setGivenDsl(givenDsl);

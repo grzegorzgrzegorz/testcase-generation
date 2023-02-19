@@ -9,6 +9,7 @@ public class When extends DslGenerator {
         ParameterClosure whenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
+                    "String text = dataGenerator.generate();"+System.lineSeparator()+
                     "String result = MyUtil.makeValidSentence(text);"
             );
         };

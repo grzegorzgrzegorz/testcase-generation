@@ -14,13 +14,13 @@ public class Capitals extends InputContent {
         ParameterClosure givenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
-                    "text = " + inputValue);
+                    "dataGenerator.set(\""+inputValue+"\")");
         };
 
         ParameterClosure thenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
-                    "assertTrue result.startsWithCapital();");
+                    "assertTrue result.matches([A-Z].*);");
         };
 
         setGivenDsl(givenDsl);

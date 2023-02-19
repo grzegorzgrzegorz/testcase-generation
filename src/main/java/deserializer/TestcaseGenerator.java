@@ -23,7 +23,7 @@ public class TestcaseGenerator {
 
     public TestcaseGenerator() throws URISyntaxException {
         List<DslGenerator> variableCombination = getVariableCombination("example.json");
-        System.out.println("String text;");
+        System.out.println("DataGenerator dataGenerator = new DataGenerator();");
         variableCombination.forEach(item -> item.generateDsl(GWT.GIVEN));
         new When("").generateDsl(GWT.WHEN);
         variableCombination.forEach(item -> item.generateDsl(GWT.THEN));
