@@ -3,10 +3,10 @@
     "value": "Yes"
   },
   "InputContent.Words": {
-    "value": "One"
+    "value": "OneWord"
   },
   "InputContent.Dots": {
-    "value": "PresentAtTheEnd"
+    "value": "DotPresentAtTheEnd"
   },
   "InputContent.Capitals": {
     "value": "FirstLetterCapitalized"

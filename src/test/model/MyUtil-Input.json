@@ -19,22 +19,22 @@
         "members": {
           "Words": {
             "values": {
-              "One": {},
-              "Many": {}
+              "OneWord": {},
+              "ManyWords": {}
             }
           },
           "Dots": {
             "values": {
-              "PresentAtTheEnd": {},
-              "PresentNotAtTheEnd": {},
-              "None": {}
+              "DotPresentAtTheEnd": {},
+              "DotPresentNotAtTheEnd": {},
+              "NoDots": {}
             }
           },
           "Capitals": {
             "values": {
               "FirstLetterCapitalized": {},
               "NotFirstLetterCapitalized": {},
-              "None": {}
+              "NoCapitals": {}
             }
           }
         }
