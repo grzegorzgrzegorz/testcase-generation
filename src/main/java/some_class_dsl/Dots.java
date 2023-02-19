@@ -1,6 +1,5 @@
 package some_class_dsl;
 
-import first_testcase.ParameterClosure;
 import gherkin.GWT;
 
 public class Dots extends InputContent {
@@ -11,7 +10,7 @@ public class Dots extends InputContent {
         ParameterClosure givenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
             System.out.println(gwtPrefix +
-                    "text = "+inputValue);
+                    "text = " + inputValue);
         };
 
         ParameterClosure thenDsl = (GWT item, String inputValue) -> {

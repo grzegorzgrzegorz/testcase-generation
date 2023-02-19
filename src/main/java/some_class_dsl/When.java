@@ -1,11 +1,10 @@
 package some_class_dsl;
 
-import first_testcase.ParameterClosure;
 import gherkin.GWT;
 
-public class When extends DslGenerator{
+public class When extends DslGenerator {
 
-    public When(String value){
+    public When(String value) {
         super(value);
         ParameterClosure whenDsl = (GWT item, String inputValue) -> {
             String gwtPrefix = item.getName() + System.lineSeparator();
