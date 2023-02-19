@@ -17,11 +17,13 @@ public class Words extends InputContent {
                     "dataGenerator.set(\""+inputValue+"\")");
         };
 
-        ParameterClosure thenDsl = (GWT item, String inputValue) -> {
-            String gwtPrefix = item.getName() + System.lineSeparator();
-            System.out.println(gwtPrefix +
-                    "assertTrue result.matches(.*[ ].*);");
-        };
+        if(value == "ManyWords") {
+            ParameterClosure thenDsl = (GWT item, String inputValue) -> {
+                String gwtPrefix = item.getName() + System.lineSeparator();
+                System.out.println(gwtPrefix +
+                        "assertTrue result.matches(.*[ ].*\\.);");
+            };
+        }
 
         setGivenDsl(givenDsl);
         setThenDsl(thenDsl);
