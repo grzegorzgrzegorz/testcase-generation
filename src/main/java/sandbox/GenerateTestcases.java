@@ -1,6 +1,7 @@
-package some_class_dsl;
+package sandbox;
 
 import gherkin.GWT;
+import some_class_dsl.*;
 
 import java.util.ArrayList;
 import java.util.List;
