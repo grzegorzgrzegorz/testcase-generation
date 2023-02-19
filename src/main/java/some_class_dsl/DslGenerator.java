@@ -32,7 +32,7 @@ public class DslGenerator {
         } else if (item.equals(GWT.THEN) && thenDsl != null) {
             thenDsl.generate(item, value);
         } else {
-            System.out.println("Skipping: " + item.toString() + " for ");
+            System.out.println("//Not found: " + item.toString() + " for "+ this.getClass().getSimpleName() + " class");
         }
     }
 
