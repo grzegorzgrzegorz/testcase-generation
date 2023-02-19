@@ -1,6 +1,7 @@
 package first_testcase;
 
 import gherkin.GWT;
+import some_class_dsl.ParameterClosure;
 
 public class MyDslGenerator {
 

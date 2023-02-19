@@ -1,4 +1,4 @@
-package first_testcase;
+package some_class_dsl;
 
 import gherkin.GWT;
 
