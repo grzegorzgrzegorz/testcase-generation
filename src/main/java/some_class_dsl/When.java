@@ -1,6 +1,7 @@
 package some_class_dsl;
 
-import gherkin.GWT;
+import core.DslGenerator;
+import core.ParameterClosure;
 
 public class When extends DslGenerator {
 

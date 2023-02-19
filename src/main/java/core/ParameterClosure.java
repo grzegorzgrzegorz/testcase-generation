@@ -1,4 +1,4 @@
-package some_class_dsl;
+package core;
 
 import gherkin.GWT;
 

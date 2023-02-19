@@ -1,6 +1,6 @@
 package some_class_dsl;
 
-import gherkin.GWT;
+import core.ParameterClosure;
 
 public class Words extends InputContent {
 
@@ -16,15 +16,15 @@ public class Words extends InputContent {
                     "dataGenerator.set(\""+inputValue+"\")");
         };
 
+        setGivenDsl(givenDsl);
         if(value == "ManyWords") {
             ParameterClosure thenDsl = (String inputValue) -> {
                 System.out.println(
                         "assertTrue result.matches(.*[ ].*\\.);");
             };
+            setThenDsl(thenDsl);
         }
 
-        setGivenDsl(givenDsl);
-        setThenDsl(thenDsl);
     }
 
 }

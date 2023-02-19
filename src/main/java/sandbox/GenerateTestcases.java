@@ -1,5 +1,6 @@
 package sandbox;
 
+import core.DslGenerator;
 import gherkin.GWT;
 import some_class_dsl.*;
 

@@ -3,7 +3,7 @@ package deserializer;
 import com.google.gson.Gson;
 import gherkin.GWT;
 import org.json.JSONObject;
-import some_class_dsl.DslGenerator;
+import core.DslGenerator;
 import some_class_dsl.When;
 
 import java.io.IOException;
@@ -20,6 +20,8 @@ public class TestcaseGenerator {
     public static void main(String[] args) throws URISyntaxException {
         new TestcaseGenerator();
     }
+
+    //ToDo: add ability to generate testcases of all json testcases
 
     public TestcaseGenerator() throws URISyntaxException {
         List<DslGenerator> variableCombination = getVariableCombination("example.json");

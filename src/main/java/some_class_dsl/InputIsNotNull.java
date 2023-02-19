@@ -1,6 +1,7 @@
 package some_class_dsl;
 
-import gherkin.GWT;
+import core.DslGenerator;
+import core.ParameterClosure;
 
 public class InputIsNotNull extends DslGenerator {
 
@@ -15,8 +16,8 @@ public class InputIsNotNull extends DslGenerator {
                 System.out.println(
                         "assertTrue result.isEmpty();");
             };
+            setThenDsl(thenDsl);
         }
-        setThenDsl(thenDsl);
     }
 
 }
