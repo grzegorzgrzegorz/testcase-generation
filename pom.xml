@@ -46,6 +46,7 @@
                         </goals>
                         <configuration>
                             <inputDir>${basedir}/src/test/model</inputDir>
+                            <outDir>${basedir}/src/main/resources</outDir>
                         </configuration>
                     </execution>
                 </executions>

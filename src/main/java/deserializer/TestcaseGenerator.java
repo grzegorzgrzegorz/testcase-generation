@@ -1,9 +1,10 @@
 package deserializer;
 
 import com.google.gson.Gson;
-import gherkin.GWT;
-import org.json.JSONObject;
 import core.DslGenerator;
+import gherkin.GWT;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import some_class_dsl.When;
 
 import java.io.IOException;
@@ -21,24 +22,37 @@ public class TestcaseGenerator {
         new TestcaseGenerator();
     }
 
-    //ToDo: add ability to generate testcases of all json testcases
-
     public TestcaseGenerator() throws URISyntaxException {
-        List<DslGenerator> variableCombination = getVariableCombination("example.json");
+        JSONArray testcaseList = getTestcases("MyUtil-Test.json");
+        testcaseList.forEach(testcase -> {
+                    try {
+                        List<DslGenerator> variableCombination = getVariableCombination(((JSONObject) testcase).getJSONObject("arg"));
+                        printTestcase(variableCombination);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
+    }
 
-        System.out.println("//"+GWT.GIVEN);
+    public void printTestcase(List<DslGenerator> variableCombination) {
+        System.out.println("//" + GWT.GIVEN);
         System.out.println("DataGenerator dataGenerator = new DataGenerator();");
         variableCombination.forEach(item -> item.generateDsl(GWT.GIVEN));
 
-        System.out.println("//"+GWT.WHEN);
+        System.out.println("//" + GWT.WHEN);
         new When("").generateDsl(GWT.WHEN);
 
-        System.out.println("//"+GWT.THEN);
+        System.out.println("//" + GWT.THEN);
         variableCombination.forEach(item -> item.generateDsl(GWT.THEN));
     }
 
-    public List<DslGenerator> getVariableCombination(String fileName) throws URISyntaxException {
+    public JSONArray getTestcases(String fileName) throws URISyntaxException {
         JSONObject jsonObject = getParsedJson(fileName);
+        return (JSONArray) ((JSONObject) jsonObject.get("makeValidSentence")).get("testCases");
+    }
+
+    public List<DslGenerator> getVariableCombination(JSONObject jsonObject) throws URISyntaxException {
         List<DslGenerator> inputCombination = new ArrayList<>();
         jsonObject.keySet().forEach(keyName -> inputCombination.add(getSerializedInstance(keyName, jsonObject)));
         return inputCombination;
