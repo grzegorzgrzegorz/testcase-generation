@@ -1,31 +1,31 @@
 import core.DslGenerator;
-import gherkin.GWT;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import some_class_dsl.When;
+import utils.TestcaseWriter;
 import utils.Utils;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestcaseGenerator {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         new TestcaseGenerator();
     }
 
-    public TestcaseGenerator() throws URISyntaxException {
+    public TestcaseGenerator() throws URISyntaxException, IOException {
         JSONArray testcaseList = getTestcases("MyUtil-Test.json");
-        testcaseList.forEach(testcase -> {
-                    try {
-                        List<DslGenerator> variableCombination = getVariableCombination(((JSONObject) testcase).getJSONObject("arg"));
-                        printTestcase(variableCombination);
-                    } catch (URISyntaxException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
+        List<DslGenerator> variableCombination = new ArrayList<>();
+        for (Object testcase : testcaseList) {
+            try {
+                variableCombination = getVariableCombination(((JSONObject) testcase).getJSONObject("arg"));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        TestcaseWriter.write(variableCombination);
     }
 
     public JSONArray getTestcases(String fileName) throws URISyntaxException {
@@ -39,15 +39,4 @@ public class TestcaseGenerator {
         return inputCombination;
     }
 
-    public void printTestcase(List<DslGenerator> variableCombination) {
-        System.out.println("//" + GWT.GIVEN);
-        System.out.println("DataGenerator dataGenerator = new DataGenerator();");
-        variableCombination.forEach(item -> item.generateDsl(GWT.GIVEN));
-
-        System.out.println("//" + GWT.WHEN);
-        new When("").generateDsl(GWT.WHEN);
-
-        System.out.println("//" + GWT.THEN);
-        variableCombination.forEach(item -> item.generateDsl(GWT.THEN));
-    }
 }
