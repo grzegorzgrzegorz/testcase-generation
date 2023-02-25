@@ -13,7 +13,6 @@ import java.util.List;
 
 public class TestcaseWriter {
 
-
     static Path generatedDirectory = Paths.get("src", "test", "java", "generated", "testSomeClass.java");
 
     public static void write(List<DslGenerator> variableCombination) throws IOException {
@@ -23,13 +22,15 @@ public class TestcaseWriter {
     }
 
     private static void printHeader() throws IOException {
-        String text = "header";
-        Files.write(generatedDirectory, text.getBytes(), StandardOpenOption.WRITE);
+        Files.write(generatedDirectory, "package generated;".getBytes(), StandardOpenOption.WRITE);
+        Files.write(generatedDirectory, "import org.junit.jupiter.api.Test;".getBytes(), StandardOpenOption.APPEND);
+        Files.write(generatedDirectory, "import some_class.MyUtil;".getBytes(), StandardOpenOption.APPEND);
+        Files.write(generatedDirectory, "import utils.DataGenerator;".getBytes(), StandardOpenOption.APPEND);
+        Files.write(generatedDirectory, "public class testMyUtil {".getBytes(), StandardOpenOption.APPEND);
     }
 
     private static void printFooter() throws IOException {
-        String text = "footer";
-        Files.write(generatedDirectory, text.getBytes(), StandardOpenOption.APPEND);
+        Files.write(generatedDirectory, "}".getBytes(), StandardOpenOption.APPEND);
     }
 
     private static void printTestcases(List<DslGenerator> variableCombination) throws IOException {
