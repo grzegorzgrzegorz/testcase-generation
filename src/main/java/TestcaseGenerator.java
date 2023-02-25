@@ -1,5 +1,3 @@
-package deserializer;
-
 import core.DslGenerator;
 import gherkin.GWT;
 import org.json.JSONArray;
