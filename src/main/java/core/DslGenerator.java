@@ -24,6 +24,10 @@ public class DslGenerator {
         this.thenDsl = thenDsl;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     public String generateDsl(GWT item) {
         if (item.equals(GWT.GIVEN) && givenDsl != null) {
             return givenDsl.generate(value);

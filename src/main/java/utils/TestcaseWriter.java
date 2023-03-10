@@ -2,6 +2,7 @@ package utils;
 
 import core.DslGenerator;
 import gherkin.GWT;
+import some_class_dsl.InputIsNotNull;
 import some_class_dsl.When;
 
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class TestcaseWriter {
 
     private static void printHeader() throws IOException {
         writeLine("package generated;", TestcaseWriter.class);
+        appendLine("import static org.junit.jupiter.api.Assertions.assertThrows;", TestcaseWriter.class);
         appendLine("import org.junit.jupiter.api.Test;", TestcaseWriter.class);
         appendLine("import some_class.MyUtil;", TestcaseWriter.class);
         appendLine("import utils.DataGenerator;", TestcaseWriter.class);
@@ -66,6 +68,18 @@ public class TestcaseWriter {
 
     private static String comment(String text) {
         return " //" + text;
+    }
+
+    private static boolean exceptionThrownAssertionActive(DslGenerator variable) {
+        if (variable instanceof InputIsNotNull && variable.getValue().contentEquals("No")) {
+            return true;
+        }
+        return false;
+    }
+
+    private static String makeNullPointerExceptionThrownAssertion(String invocation) {
+        String nullPointerExceptionThrownAssertionTemplate = "assertThrows(NullPointerException.class, () -> {CLOSURE_PLACEHOLDER;});";
+        return nullPointerExceptionThrownAssertionTemplate.replace("CLOSURE_PLACEHOLDER", invocation);
     }
 
     private static void printTestcase(int testcaseId, List<DslGenerator> variableCombination) throws IOException {
@@ -83,7 +97,24 @@ public class TestcaseWriter {
         });
 
         appendLine("//" + GWT.WHEN, null);
-        appendLine(new When("").generateDsl(GWT.WHEN), When.class);
+        boolean exceptionThrownAssertion = false;
+        for (DslGenerator variable : variableCombination) {
+            try {
+                appendLine(variable.generateDsl(GWT.WHEN), variable.getClass());
+                if (exceptionThrownAssertionActive(variable)) {
+                    exceptionThrownAssertion = true;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String classUnderTestInvocation = new When("").generateDsl(GWT.WHEN);
+        if (exceptionThrownAssertion) {
+            appendLine(makeNullPointerExceptionThrownAssertion(classUnderTestInvocation), null);
+        } else {
+            appendLine(classUnderTestInvocation, When.class);
+        }
 
         appendLine("//" + GWT.THEN, null);
         variableCombination.forEach(item -> {
