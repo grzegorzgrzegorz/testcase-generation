@@ -52,11 +52,19 @@
                         </goals>
                         <configuration>
                             <inputDir>${basedir}/src/test/model</inputDir>
-                            <outDir>${basedir}/src/main/resources</outDir>
+                            <outDir>${basedir}/src/test/java/generated</outDir>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/java/generated</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
     </build>
 </project>
