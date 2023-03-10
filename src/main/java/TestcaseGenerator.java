@@ -17,15 +17,17 @@ public class TestcaseGenerator {
 
     public TestcaseGenerator() throws URISyntaxException, IOException {
         JSONArray testcaseList = getTestcases("MyUtil-Test.json");
-        List<DslGenerator> variableCombination = new ArrayList<>();
+        TestcaseWriter.createTestclass();
         for (Object testcase : testcaseList) {
             try {
-                variableCombination = getVariableCombination(((JSONObject) testcase).getJSONObject("arg"));
+                int testcaseId = ((JSONObject) testcase).getInt("id");
+                List<DslGenerator> variableCombination = getVariableCombination(((JSONObject) testcase).getJSONObject("arg"));
+                TestcaseWriter.write(testcaseId, variableCombination);
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
         }
-        TestcaseWriter.write(variableCombination);
+        TestcaseWriter.finalizeTestclass();
     }
 
     public JSONArray getTestcases(String fileName) throws URISyntaxException {

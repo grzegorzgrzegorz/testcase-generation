@@ -13,37 +13,87 @@ import java.util.List;
 
 public class TestcaseWriter {
 
-    static Path generatedDirectory = Paths.get("src", "test", "java", "generated", "testSomeClass.java");
+    static Path generatedDirectory = Paths.get("src", "test", "java", "generated", "testMyUtil.java");
+    static String newLine = System.lineSeparator();
 
-    public static void write(List<DslGenerator> variableCombination) throws IOException {
+
+    public static void createTestclass() throws IOException {
+        createFileIfNotExists();
         printHeader();
-        printTestcases(variableCombination);
+    }
+
+    public static void finalizeTestclass() throws IOException {
         printFooter();
     }
 
+    public static void write(int testcaseId, List<DslGenerator> variableCombination) throws IOException {
+        printTestcase(testcaseId, variableCombination);
+    }
+
+    private static void createFileIfNotExists() throws IOException {
+        Files.deleteIfExists(generatedDirectory);
+        Files.createFile(generatedDirectory);
+    }
+
+    private static void writeLine(String text, Class classEntity) throws IOException {
+        putLine(StandardOpenOption.WRITE, text, classEntity);
+    }
+
+    private static void appendLine(String text, Class classEntity) throws IOException {
+        putLine(StandardOpenOption.APPEND, text, classEntity);
+    }
+
+    private static void putLine(StandardOpenOption standardOpenOption, String text, Class classEntity) throws IOException {
+        String commentString = "";
+        if (classEntity != null) {
+            commentString = comment(classEntity.getSimpleName());
+        }
+        Files.write(generatedDirectory, (text + commentString + newLine).getBytes(), standardOpenOption);
+    }
+
     private static void printHeader() throws IOException {
-        Files.write(generatedDirectory, "package generated;".getBytes(), StandardOpenOption.WRITE);
-        Files.write(generatedDirectory, "import org.junit.jupiter.api.Test;".getBytes(), StandardOpenOption.APPEND);
-        Files.write(generatedDirectory, "import some_class.MyUtil;".getBytes(), StandardOpenOption.APPEND);
-        Files.write(generatedDirectory, "import utils.DataGenerator;".getBytes(), StandardOpenOption.APPEND);
-        Files.write(generatedDirectory, "public class testMyUtil {".getBytes(), StandardOpenOption.APPEND);
+        writeLine("package generated;", TestcaseWriter.class);
+        appendLine("import org.junit.jupiter.api.Test;", TestcaseWriter.class);
+        appendLine("import some_class.MyUtil;", TestcaseWriter.class);
+        appendLine("import utils.DataGenerator;", TestcaseWriter.class);
+        appendLine("", null);
+        appendLine("public class testMyUtil {", TestcaseWriter.class);
     }
 
     private static void printFooter() throws IOException {
-        Files.write(generatedDirectory, "}".getBytes(), StandardOpenOption.APPEND);
+        appendLine("}", null);
     }
 
-    private static void printTestcases(List<DslGenerator> variableCombination) throws IOException {
+    private static String comment(String text) {
+        return " //" + text;
+    }
 
-        Files.write(generatedDirectory, ("//" + GWT.GIVEN).getBytes(), StandardOpenOption.APPEND);
-        Files.write(generatedDirectory, "DataGenerator dataGenerator = new DataGenerator();".getBytes(), StandardOpenOption.APPEND);
-        variableCombination.forEach(item -> item.generateDsl(GWT.GIVEN));
+    private static void printTestcase(int testcaseId, List<DslGenerator> variableCombination) throws IOException {
+        appendLine("", null);
+        appendLine("@Test", null);
+        appendLine("void test" + testcaseId + "(){", TestcaseWriter.class);
+        appendLine("//" + GWT.GIVEN, null);
+        appendLine("DataGenerator dataGenerator = new DataGenerator();", TestcaseWriter.class);
+        variableCombination.forEach(item -> {
+            try {
+                appendLine(item.generateDsl(GWT.GIVEN), item.getClass());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-        Files.write(generatedDirectory, ("//" + GWT.WHEN).getBytes(), StandardOpenOption.APPEND);
-        new When("").generateDsl(GWT.WHEN);
+        appendLine("//" + GWT.WHEN, null);
+        appendLine(new When("").generateDsl(GWT.WHEN), When.class);
 
-        Files.write(generatedDirectory, ("//" + GWT.THEN).getBytes(), StandardOpenOption.APPEND);
-        variableCombination.forEach(item -> item.generateDsl(GWT.THEN));
+        appendLine("//" + GWT.THEN, null);
+        variableCombination.forEach(item -> {
+            try {
+                appendLine(item.generateDsl(GWT.THEN), item.getClass());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        appendLine("}", TestcaseWriter.class);
     }
 
 }
