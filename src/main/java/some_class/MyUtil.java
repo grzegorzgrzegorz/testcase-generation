@@ -1,10 +1,13 @@
 package some_class;
 
+import com.google.common.base.Preconditions;
+
 public class MyUtil {
 
     static String capitalLetterPattern = "[A-Z]";
 
     public static String makeValidSentence(String input) {
+        Preconditions.checkNotNull(input, "input is null!");
         String output = input.trim();
         output = addDotIfRequired(output);
         output = capitalizeFirstLetterIfRequired(output);
@@ -25,6 +28,6 @@ public class MyUtil {
             return input;
         }
         String restOfInput = input.substring(1);
-        return firstLetter + restOfInput;
+        return String.valueOf(firstLetter).toUpperCase() + restOfInput;
     }
 }
