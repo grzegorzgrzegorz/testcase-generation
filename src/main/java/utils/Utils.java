@@ -1,5 +1,6 @@
 package utils;
 
+import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import core.DslGenerator;
 import org.json.JSONObject;
@@ -16,7 +17,8 @@ public class Utils {
     public static JSONObject getParsedJson(String fileName) {
         Path path = null;
         try {
-            path = Paths.get(Utils.class.getClassLoader().getResource(fileName).toURI());
+            Path targetPath = Paths.get(Resources.getResource("").toURI()).getParent();
+            path = Paths.get(targetPath.toString(), "/test-classes/", fileName);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
