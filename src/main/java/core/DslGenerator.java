@@ -1,6 +1,5 @@
 package core;
 
-import core.ParameterClosure;
 import gherkin.GWT;
 
 public class DslGenerator {
@@ -25,16 +24,15 @@ public class DslGenerator {
         this.thenDsl = thenDsl;
     }
 
-    public void generateDsl(GWT item) {
+    public String generateDsl(GWT item) {
         if (item.equals(GWT.GIVEN) && givenDsl != null) {
-            givenDsl.generate(value);
+            return givenDsl.generate(value);
         } else if (item.equals(GWT.WHEN) && whenDsl != null) {
-            whenDsl.generate(value);
+            return whenDsl.generate(value);
         } else if (item.equals(GWT.THEN) && thenDsl != null) {
-            thenDsl.generate(value);
-        } else {
-            System.out.println("//Not found: " + item.toString() + " for "+ this.getClass().getSimpleName() + " class");
+            return thenDsl.generate(value);
         }
+        return("//Not found: " + item.toString());
     }
 
 

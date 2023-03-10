@@ -11,13 +11,14 @@ public class Dots extends InputContent {
     public Dots(String value) {
         super(value);
         ParameterClosure givenDsl = (String inputValue) -> {
-            System.out.println(
-                    "dataGenerator.set(\""+inputValue+"\")");
+        if (!inputValue.isEmpty()) {
+            return "dataGenerator.set(\"" + inputValue + "\");";
+        }
+        return "//N/A";
         };
 
         ParameterClosure thenDsl = (String inputValue) -> {
-            System.out.println(
-                    "assertTrue result.matches(.*\\.);");
+            return "assert result.matches(\".*\\\\.\");";
         };
 
         setGivenDsl(givenDsl);

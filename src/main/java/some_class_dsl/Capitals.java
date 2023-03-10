@@ -4,7 +4,7 @@ import core.ParameterClosure;
 
 public class Capitals extends InputContent {
 
-    public Capitals(){
+    public Capitals() {
         this("");
     }
 
@@ -12,13 +12,14 @@ public class Capitals extends InputContent {
         super(value);
 
         ParameterClosure givenDsl = (String inputValue) -> {
-            System.out.println(
-                    "dataGenerator.set(\""+inputValue+"\")");
+            if (!inputValue.isEmpty()) {
+                return "dataGenerator.set(\"" + inputValue + "\");";
+            }
+            return "//N/A";
         };
 
         ParameterClosure thenDsl = (String inputValue) -> {
-            System.out.println(
-                    "assertTrue result.matches([A-Z].*);");
+            return "assert result.matches(\"[A-Z].*\");";
         };
 
         setGivenDsl(givenDsl);

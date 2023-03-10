@@ -13,8 +13,7 @@ public class InputIsNotNull extends DslGenerator {
         super(value);
         if (value == "no") {
             ParameterClosure thenDsl = (String inputValue) -> {
-                System.out.println(
-                        "assertTrue result.isEmpty();");
+                return "assertTrue result.isEmpty();";
             };
             setThenDsl(thenDsl);
         }
