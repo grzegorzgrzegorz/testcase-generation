@@ -19,14 +19,17 @@ public class Words extends InputContent {
             return "//N/A";
         };
 
-        setGivenDsl(givenDsl);
         ParameterClosure thenDsl = (String inputValue) -> {
-            if (value == "ManyWords") {
+            if (inputValue.contentEquals("ManyWords")){
                 return "assert result.matches(\".*[ ]+.*\\\\.\");";
-            } else {
+            } else if (inputValue.contentEquals("OneWord")) {
                 return "assert result.matches(\"[a-zA-Z.]+\");";
+            } else {
+                return "//N/A";
             }
         };
+
+        setGivenDsl(givenDsl);
         setThenDsl(thenDsl);
     }
 
