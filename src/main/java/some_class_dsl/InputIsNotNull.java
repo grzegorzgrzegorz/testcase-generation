@@ -6,17 +6,26 @@ import core.ParameterClosure;
 public class InputIsNotNull extends DslGenerator {
 
 
-    public InputIsNotNull(){
+    public InputIsNotNull() {
         this("");
     }
+
     public InputIsNotNull(String value) {
         super(value);
-        if (value == "no") {
-            ParameterClosure thenDsl = (String inputValue) -> {
-                return "assertTrue result.isEmpty();";
-            };
-            setThenDsl(thenDsl);
-        }
+        ParameterClosure whenDsl = (String inputValue) -> {
+            if (inputValue.contentEquals("No")) {
+                return "String text = null;";
+            } else {
+                return "String text = dataGenerator.generate();";
+            }
+        };
+
+        ParameterClosure thenDsl = (String inputValue) -> {
+            return "//N/A";
+        };
+
+        setWhenDsl(whenDsl);
+        setThenDsl(thenDsl);
     }
 
 }
