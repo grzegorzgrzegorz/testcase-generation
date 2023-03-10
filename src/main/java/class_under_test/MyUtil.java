@@ -1,4 +1,4 @@
-package some_class;
+package class_under_test;
 
 import com.google.common.base.Preconditions;
 

@@ -1,15 +1,16 @@
-package some_class_dsl;
+package class_under_test_dsl;
 
 import core.ParameterClosure;
 
-public class Capitals extends InputContent {
+public class Words extends InputContent {
 
-    public Capitals() {
+    public Words() {
         this("");
     }
 
-    public Capitals(String value) {
+    public Words(String value) {
         super(value);
+
 
         ParameterClosure givenDsl = (String inputValue) -> {
             if (!inputValue.isEmpty()) {
@@ -19,14 +20,18 @@ public class Capitals extends InputContent {
         };
 
         ParameterClosure thenDsl = (String inputValue) -> {
-            if (!inputValue.isEmpty()) {
-                return "assert result.matches(\"[A-Z].*\");";
+            if (inputValue.contentEquals("ManyWords")){
+                return "assert result.matches(\".*[ ]+.*\\\\.\");";
+            } else if (inputValue.contentEquals("OneWord")) {
+                return "assert result.matches(\"[a-zA-Z.]+\");";
+            } else {
+                return "//N/A";
             }
-            return "//N/A";
         };
 
         setGivenDsl(givenDsl);
         setThenDsl(thenDsl);
     }
+
 
 }

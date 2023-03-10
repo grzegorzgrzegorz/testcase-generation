@@ -40,7 +40,7 @@ public class Utils {
             if (varName.contains(".")) {
                 varName = varName.split("\\.")[1];
             }
-            return Class.forName("some_class_dsl." + varName);
+            return Class.forName("class_under_test_dsl." + varName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

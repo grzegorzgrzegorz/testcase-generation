@@ -2,8 +2,8 @@ package utils;
 
 import core.DslGenerator;
 import gherkin.GWT;
-import some_class_dsl.InputIsNotNull;
-import some_class_dsl.When;
+import class_under_test_dsl.InputIsNotNull;
+import class_under_test_dsl.When;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -56,7 +56,7 @@ public class TestcaseWriter {
         writeLine("package generated;", TestcaseWriter.class);
         appendLine("import static org.junit.jupiter.api.Assertions.assertThrows;", TestcaseWriter.class);
         appendLine("import org.junit.jupiter.api.Test;", TestcaseWriter.class);
-        appendLine("import some_class.MyUtil;", TestcaseWriter.class);
+        appendLine("import class_under_test.MyUtil;", TestcaseWriter.class);
         appendLine("import utils.DataGenerator;", TestcaseWriter.class);
         appendLine("", null);
         appendLine("public class testMyUtil {", TestcaseWriter.class);

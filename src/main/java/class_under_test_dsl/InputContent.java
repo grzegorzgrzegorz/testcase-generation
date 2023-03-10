@@ -1,4 +1,4 @@
-package some_class_dsl;
+package class_under_test_dsl;
 
 import core.DslGenerator;
 
