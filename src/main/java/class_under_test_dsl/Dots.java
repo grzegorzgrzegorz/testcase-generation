@@ -19,7 +19,7 @@ public class Dots extends InputContent {
 
         ParameterClosure thenDsl = (String inputValue) -> {
             if (!inputValue.isEmpty()) {
-                return "assert result.matches(\".*\\\\.\");";
+                return "assert result.matches(\".*\\\\.$\");";
             }
             return "//N/A";
         };

@@ -20,7 +20,7 @@ public class Capitals extends InputContent {
 
         ParameterClosure thenDsl = (String inputValue) -> {
             if (!inputValue.isEmpty()) {
-                return "assert result.matches(\"[A-Z].*\");";
+                return "assert result.matches(\"^[A-Z].*\");";
             }
             return "//N/A";
         };
